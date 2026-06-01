@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 
+const localKey = "Todo Items";
 const App = () => {
-  const [task, setTask] = useState([]);
+  const [task, setTask] = useState(()=>{
+    const savedItems=localStorage.getItem(localKey);
+    return savedItems ? JSON.parse(savedItems):[];
+  });
   const [inputVal, setInputVal] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+
+  /* LocalStorgae  */
+
+  /* for Setting the tasks  */
+  useEffect(() => {
+    localStorage.setItem(localKey, JSON.stringify(task));
+  }, [task]);
 
   /*  Delete the Task*/
 
